@@ -20,11 +20,11 @@ void draw(){
   //button
   
   tactile(100,100,50);
-  p1();
+  button(50,60,100,purple1);
   tactile(300,100,50);
-  p2();
+  button(250,60,100,purple2);
   tactile(500,100,50);
-  p3();
+  button(450,60,100,purple3);
   
   stroke(pink);
   //color
@@ -51,18 +51,7 @@ void tactile(int x,int y,int r){
     stroke(pink);
   }
 }
-
-void p1(){
-  fill(purple1);
-  square(50,60,100);
+void button(int x,int y,int r,color f){
+  fill(f);
+  square(x,y,r);
 }
-
-void p2(){
-  fill(purple2);
-  square(250,60,100);
-}
-
-void p3(){
-  fill(purple3);
-  square(450,60,100);
-}                                                                                                                                                                                       
