@@ -3,7 +3,8 @@
 //Unit 3 Projoect
 
 color currentColor = color(0);
-float strokeSize = 5;
+float drawStrokeSize = 5;
+float uiStrokeSize = 3;
 
 boolean drawing = false;
 
@@ -37,9 +38,9 @@ void draw() {
   drawColorButtons();
   drawStampButtons();
   drawSlider();
+  drawStrokeSize();
   drawIndicator();
   drawNewButton();
-  drawStrokeSize();
   drawSaveButton();
   drawLoadButton();
 }
@@ -67,7 +68,7 @@ void mouseDragged() {
   // Move slider
   if (draggingSlider) {
     knobX = constrain(mouseX, sliderX, sliderX + sliderW);
-    strokeSize = map(knobX, sliderX, sliderX + sliderW, 1, 30);
+    drawStrokeSize = map(knobX, sliderX, sliderX + sliderW, 1, 30);
   }
 
   // Draw continuously with stamp
@@ -90,7 +91,7 @@ void drawColorButtons() {
   };
 
   for (int i = 0; i < colors.length; i++) {
-    drawButton(10 + i * 40, 20, 30, 30, colors[i], colors[i]);
+    drawButton(10 + i * 40, 20, 30, 30, colors[i], lerpColor(colors[i], color(200), 0.4));
   }
 }
 
@@ -128,8 +129,8 @@ void drawSlider() {
 void drawIndicator() {
   fill(currentColor);
   stroke(currentColor);
-  strokeWeight(strokeSize);
-  ellipse(550, 50, strokeSize * 2, strokeSize * 2);
+  strokeWeight(uiStrokeSize);
+  ellipse(550, 50, uiStrokeSize * 2, uiStrokeSize * 2);
 }
 
 // New button
@@ -198,20 +199,20 @@ void drawStamp(float x, float y) {
   noStroke();
 
   if (currentStamp == 1) {
-    ellipse(mouseX, mouseY, strokeSize * 2, strokeSize * 2);
+    ellipse(mouseX, mouseY, drawStrokeSize * 2, drawStrokeSize * 2);
   } else if (currentStamp == 2) {
-    rect(mouseX, mouseY, strokeSize * 2, strokeSize * 2);
+    rect(mouseX, mouseY, drawStrokeSize * 2, drawStrokeSize * 2);
   }
 }
-// ---------- STROKEW DRAW ----------
+// ---------- STROKE DRAW ----------
 void drawStrokeSize(){
   if (mousePressed && mouseY > canvasY && currentStamp == 0) {
     stroke(currentColor);
-    strokeWeight(strokeSize);
+    strokeWeight(drawStrokeSize);
     line(pmouseX, pmouseY, mouseX, mouseY);
   }
 }
-// --------------Savw & Load --------------
+// --------------Save & Load --------------
 void drawSaveButton(){
   drawButton(450, 60, 60, 30, color(180), color(140));
   fill(0);
@@ -220,19 +221,19 @@ void drawSaveButton(){
 }
 void saveImage(File f){
   if (f != null){
-   PImage canvas = get( 71, 1, width-71, height-1);
+   PImage canvas = get( 0, 100, width-71, height-1);
    canvas.save(f.getAbsolutePath());
   }
 }
 
 void handleSaveClick() {
-  if (mouseX > 450 && mouseX < 510 && mouseY > 45 && mouseY < 75) {
-    selectOutput("choose a name ofr your new image file", "saveImage");
+  if (mouseX > 450 && mouseX < 510 && mouseY > 60 && mouseY < 90) {
+    selectOutput("include file extention name as .jpg, .jpeg, .PNG etc file", "saveImage");
   }
 }
 
 void handleLoadClick() {
-  if (mouseX > 380 && mouseX < 440 && mouseY > 45 && mouseY < 75) {
+  if (mouseX > 380 && mouseX < 440 && mouseY > 60 && mouseY < 90) {
     selectInput("Pick an image to load", "openImage");
   }
 }
@@ -242,7 +243,7 @@ void openImage(File f){
   int n = 0;
   while (n < 10){
    PImage pic = loadImage(f.getPath());
-   image(pic,0,0);
+   image(pic,0,100,600,400);
    n = n+1;
   }
  }
