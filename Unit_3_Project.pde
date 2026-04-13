@@ -130,7 +130,7 @@ void drawIndicator() {
   fill(currentColor);
   stroke(currentColor);
   strokeWeight(uiStrokeSize);
-  ellipse(550, 50, uiStrokeSize * 2, uiStrokeSize * 2);
+  ellipse(550, 50, drawStrokeSize , drawStrokeSize );
 }
 
 // New button
@@ -221,7 +221,7 @@ void drawSaveButton(){
 }
 void saveImage(File f){
   if (f != null){
-   PImage canvas = get( 0, 100, width-71, height-1);
+   PImage canvas = get( 0, 100, width, height);
    canvas.save(f.getAbsolutePath());
   }
 }
